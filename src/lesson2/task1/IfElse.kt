@@ -4,6 +4,7 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.*
+import java.lang.IllegalAccessException
 
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
