@@ -4,7 +4,6 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.*
-import java.lang.IllegalAccessException
 
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -74,6 +73,7 @@ fun ageDescription(age: Int): String = when {
     age % 10 == 1 -> "$age год"
     age / 10 % 10 == 9 -> "$age лет"
     age / 10 % 10 == 3 -> "$age года"
+    age % 10 == 2 -> "$age года"
     else -> throw IllegalArgumentException("неверный возраст")
 }
 
@@ -114,17 +114,15 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
-    val a = rookX1
-    val b = rookX2
-    val c = rookY1
-    val d = rookY2
-    val rook1: Boolean = a == kingX || c == kingY
-    val rook2: Boolean = b == kingX || d == kingY
-    if (!rook1 && !rook2) return 0
-    else if (rook1 && rook2) return 3
-    else if (rook1) return 1
-    return 2
-
+    val rook1 = rookX1 == kingX || rookY1 == kingY
+    val rook2 = rookX2 == kingX || rookY2 == kingY
+    return when {
+        !rook1 && !rook2 -> 0
+        rook1 && rook2 -> 3
+        rook1 -> 1
+        rook2 -> 2
+        else -> 4
+    }
 }
 
 /**
@@ -142,18 +140,16 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int {
-    val a = rookX
-    val b = rookY
-    val c = bishopX
-    val d = bishopY
-    val rook: Boolean = kingX == a || kingY == b
-    val bishop: Boolean = abs(kingX - bishopX) == abs(kingY - bishopY)
-    if (!rook && !bishop) return 0
-    else if (rook && bishop) return 3
-    else if (rook) return 1
-    return 2
+    val rook = kingX == rookX || kingY == rookY
+    val bishop = abs(kingX - bishopX) == abs(kingY - bishopY)
+    return when {
+        !rook && !bishop -> 0
+        rook && bishop -> 3
+        rook -> 1
+        bishop -> 2
+        else -> 4
+    }
 }
-
 /**
  * Простая (2 балла)
  *
@@ -185,6 +181,7 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
     b == c && a < d -> 0
     b <= c && a < d -> -1
+    b == c && a == d -> 0
     b >= c && a >= d -> -1
     b <= d && a >= c -> b - a
     a <= c && b <= d -> b - c

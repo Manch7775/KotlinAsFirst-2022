@@ -27,7 +27,7 @@ fun isNumberHappy(number: Int): Boolean {
     val b = number % 1000 / 100
     val c = number % 100 / 10
     val d = number % 10
-    return (a + b == c + d)
+    return a + b == c + d
 }
 /**
  * Простая (2 балла)
@@ -51,12 +51,13 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = when {
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    if (((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) && month == 2) return 29
-    else if (month == 2) return 28
-    return if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) 31
-    else 30
+    return when {
+        ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) && month == 2 -> 29
+        month == 2 -> 28
+        month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 -> 31
+        else -> 30
+    }
 }
-
 /**
  * Простая (2 балла)
  *
