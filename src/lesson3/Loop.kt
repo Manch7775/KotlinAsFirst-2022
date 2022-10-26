@@ -1,6 +1,6 @@
 @file:Suppress("UNUSED_PARAMETER")
 
-package lesson4.task1.task1
+package lesson3
 
 import kotlin.math.PI
 import kotlin.math.pow
