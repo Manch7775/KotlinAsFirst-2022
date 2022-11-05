@@ -73,6 +73,7 @@ fun ageDescription(age: Int): String = when {
     age % 10 == 1 -> "$age год"
     age / 10 % 10 == 9 -> "$age лет"
     age / 10 % 10 == 3 -> "$age года"
+    age / 10 == 0 -> "$age года"
     age % 10 == 2 -> "$age года"
     else -> throw IllegalArgumentException("неверный возраст")
 }
@@ -120,8 +121,7 @@ fun whichRookThreatens(
         !rook1 && !rook2 -> 0
         rook1 && rook2 -> 3
         rook1 -> 1
-        rook2 -> 2
-        else -> 4
+        else -> 2
     }
 }
 
@@ -179,13 +179,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = when {
-    b == c && a < d -> 0
-    b <= c && a < d -> -1
-    b == c && a == d -> 0
-    b >= c && a >= d -> -1
-    b <= d && a >= c -> b - a
-    a <= c && b <= d -> b - c
-    c <= a && b >= d -> d - a
-    c >= a && b >= d -> d - c
-    else -> -1
+    a > d || b < c -> -1
+    d in a..b && a <= c -> d - c
+    b in c..d && a < c -> b - c
+    c <= a && b <= d -> b - a
+    else -> d - a
 }

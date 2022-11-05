@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import kotlin.math.PI
+import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -76,7 +77,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 1
-    var number = n
+    var number = abs(n)
     while (number > 9) {
         number /= 10
         count++
@@ -121,13 +122,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var s = n - 1
-    while (n % s != 0) {
-        s--
-    }
-    return s
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая (2 балла)
@@ -222,15 +217,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var a = 0
-    var b = n
-    while (b > 0) {
-        a = a * 10 + b % 10
-        b /= 10
-    }
-    return a == n
-}
+fun isPalindrome(n: Int): Boolean = revert(n) == n
 
 /**
  * Средняя (3 балла)
@@ -273,6 +260,8 @@ fun sin(x: Double, eps: Double): Double {
     var x = x
     while (x > 2 * PI)
         x -= 2 * PI
+    while (x < -2 * PI)
+        x += 2 * PI
     var c = 0.0
     var s = 1
     var d = x.pow(s) / factorial(s)
@@ -309,6 +298,8 @@ fun cos(x: Double, eps: Double): Double {
     var x = x
     while (x > 2 * PI)
         x -= 2 * PI
+    while (x < -2 * PI)
+        x += 2 * PI
     var c = 0.0
     var s = 0
     var d = x.pow(s) / factorial(s)
@@ -332,20 +323,20 @@ fun cos(x: Double, eps: Double): Double {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    fun Int.pow(x: Int): Int{
-        var y = 1
+    fun Int.pow(x: Int): Long {
+        var y = 1L
         for (i in 1..x)
             y *= this
         return y
     }
     var k = 1
     var m = n
-    var a = k * k
+    var a = k * k.toLong()
     var s = 1
     while (m > 0) {
         if (s == 0) {
             k++
-            a = k * k
+            a = k * k.toLong()
             s = 1
             while (10.pow(s) <= a)
                 s++
@@ -353,7 +344,7 @@ fun squareSequenceDigit(n: Int): Int {
         m--
         s--
     }
-    return a / 10.pow(s) % 10
+    return (a / 10.pow(s) % 10).toInt()
 }
 
 
@@ -367,10 +358,10 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-    fun fib(n: Int): Int {
-        var a = 1
-        var b = 1
-        var s = 0
+    fun fib(n: Int): Long {
+        var a = 1L
+        var b = 1L
+        var s = 0L
         for (i in 1..n) {
             a = b
             b = s
@@ -379,8 +370,8 @@ fun fibSequenceDigit(n: Int): Int {
         return s
     }
 
-    fun Int.pow(x: Int): Int {
-        var y = 1
+    fun Int.pow(x: Int): Long {
+        var y = 1L
         for (i in 1..x)
             y *= this
         return y
@@ -401,5 +392,5 @@ fun fibSequenceDigit(n: Int): Int {
         m--
         s--
     }
-    return a / 10.pow(s) % 10
+    return (a / 10.pow(s) % 10).toInt()
 }
