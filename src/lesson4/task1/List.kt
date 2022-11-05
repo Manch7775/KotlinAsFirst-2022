@@ -414,18 +414,16 @@ fun russian(n: Int): String {
 
             else -> ""
         }
-
-        //если нужно поставить ТЯСЯЧ
         if (isThousand) {
             val textNumber =
                 if (text.isNotBlank()) "$text " else ""
             text = when (num) {
                 1 -> "${textNumber}тысяча"
-                2, 3, 4 -> "${textNumber}тысячи"
+                2, 3, 4, 6, 8 -> "${textNumber}тысячи"
                 else -> "${textNumber}тысяч"
             }
         }
-        step++ // увеличиваем шаг
+        step++
         if (text.isNotBlank()) result = "$text $result"
     }
     return result.trim()
