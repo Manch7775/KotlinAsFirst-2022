@@ -417,7 +417,8 @@ fun russian(n: Int): String {
         if (isThousand) {
             val textNumber =
                 if (text.isNotBlank()) "$text " else ""
-            text = when (num) {
+            text = if (nextNum == 1) "${textNumber}тысяч"
+            else when (num) {
                 1 -> "${textNumber}тысяча"
                 2, 3, 4 -> "${textNumber}тысячи"
                 else -> "${textNumber}тысяч"
