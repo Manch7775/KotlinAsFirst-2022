@@ -3,9 +3,8 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import lesson1.task1.trackLength
 import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 
 /**
@@ -58,6 +57,7 @@ fun daysInMonth(month: Int, year: Int): Int {
         else -> 30
     }
 }
+
 /**
  * Простая (2 балла)
  *
@@ -68,10 +68,8 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean {
-    val a = sqrt((x2 - x1).pow(2.0) + (y2 - y1).pow(2.0))
-    return r2 >= a + r1
-}
+): Boolean = r2 >= trackLength(x1, y1, x2, y2) + r1
+
 /**
  * Средняя (3 балла)
  *

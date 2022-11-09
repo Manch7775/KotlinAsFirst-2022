@@ -291,39 +291,7 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  *          "GoodGnome" to setOf()
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> {
-    //Создаем список из всем х позмодных имен
-    val setNames = mutableSetOf<String>()
-    for(entry in friends) {
-        setNames.add(entry.key)
-        entry.value.forEach { friend ->
-            setNames.add(friend)
-        }
-    }
-
-    val resultMap = mutableMapOf<String, Set<String>>()
-
-    // Для каждого имени
-    setNames.forEach { name -> // "Sveta"
-        val listFriends = friends[name] //берем друзей Светы
-        val newListFriends = listFriends?.toMutableList() ?: mutableListOf() //Мутирующий список из друзей
-        //для каждого друга светы
-        listFriends?.forEach { nameFriend -> //Марат
-            //Друзья марата
-            val friendsThisFriend = friends[nameFriend]
-            //для каждого друга Марата
-            friendsThisFriend?.forEach {
-                // если текущиее имя не СВЕТА и у Светы нету в списке такого имени, то добавляем его
-                if (it != name /* не я (не Света) */ && it !in newListFriends) {
-                    newListFriends.add(it)
-                }
-            }
-        }
-        resultMap[name] = newListFriends.toSet()
-    }
-
-    return resultMap
-}
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
 
 
 /**

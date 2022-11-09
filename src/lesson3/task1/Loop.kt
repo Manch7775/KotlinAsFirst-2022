@@ -228,13 +228,22 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    val a = mutableSetOf<Int>()
-    var b = n
-    while (b != 0) {
-        a.add(b % 10)
-        b /= 10
+    if (n == 0)
+        return false
+    var d = 1
+    var x = 0
+    while (d < n) {
+        d *= 10
+        x++
     }
-    return a.size > 1
+    val k = n % 10
+    d = 10
+    for(i in 1 until x) {
+        if ((n / d) % 10 != k)
+            return true
+        d *= 10
+    }
+    return false
 }
 
 /**
@@ -258,15 +267,15 @@ fun sin(x: Double, eps: Double): Double {
     }
 
     var x = x
-    while (x > 2 * PI)
+    while (x > 2*PI)
         x -= 2 * PI
-    while (x < -2 * PI)
+    while (x < -2*PI)
         x += 2 * PI
     var c = 0.0
     var s = 1
     var d = x.pow(s) / factorial(s)
     var z = 1
-    while (d >= eps) {
+    while (abs(d) >= eps) {
         c += z * d
         z = -z
         s += 2
