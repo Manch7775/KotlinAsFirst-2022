@@ -237,6 +237,8 @@ fun hasDifferentDigits(n: Int): Boolean {
         d *= 10
         x++
     }
+    if (x > 10)
+        x = 10
     val k = n % 10
     d = 10
     for (i in 1 until x) {
