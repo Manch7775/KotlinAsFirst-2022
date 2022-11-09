@@ -201,7 +201,7 @@ fun fromRoman(roman: String): Int {
                 .first()
         }
     return try {
-        val y = fromRoman1(roman.uppercase())
+        val y = fromRoman1(roman)
         if (y == 0) -1 else y
     } catch (e: NoSuchElementException) {
         -1

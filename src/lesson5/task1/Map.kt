@@ -203,10 +203,9 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
     val set = word.toSet()
-    set.forEach {
-        if (it !in chars) return false
+    return set.all {
+        it in chars
     }
-    return true
 }
 
 /**
