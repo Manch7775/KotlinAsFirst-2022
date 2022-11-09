@@ -198,11 +198,15 @@ fun fromRoman(roman: String): Int {
         else {
             ra.filter { d -> number.startsWith(d.value) }
                 .map { (key, value) -> key + fromRoman1(number.drop(value.length)) }
-                .firstOrNull() ?: 0
+                .first()
         }
+    return try {
+        val y = fromRoman1(roman.uppercase())
+        if (y == 0) -1 else y
+    } catch (e: NoSuchElementException) {
+        -1
+    }
 
-    val y = fromRoman1(roman)
-    return if (y == 0) -1 else y
 }
 
 /**
