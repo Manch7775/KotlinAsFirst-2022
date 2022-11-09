@@ -228,6 +228,7 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
+    val n = abs(n)
     if (n == 0)
         return false
     var d = 1
@@ -238,7 +239,7 @@ fun hasDifferentDigits(n: Int): Boolean {
     }
     val k = n % 10
     d = 10
-    for(i in 1 until x) {
+    for (i in 1 until x) {
         if ((n / d) % 10 != k)
             return true
         d *= 10
