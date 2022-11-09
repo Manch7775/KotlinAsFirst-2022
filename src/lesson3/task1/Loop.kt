@@ -236,6 +236,8 @@ fun hasDifferentDigits(n: Int): Boolean {
     while (d < n) {
         d *= 10
         x++
+        if (x > 10)
+            break
     }
     if (x > 10)
         x = 10
