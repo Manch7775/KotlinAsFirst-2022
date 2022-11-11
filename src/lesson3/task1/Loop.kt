@@ -20,7 +20,7 @@ import kotlin.math.sqrt
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -228,25 +228,12 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    val n = abs(n)
-    if (n == 0)
-        return false
-    var d = 1
-    var x = 0
-    while (d < n) {
-        d *= 10
-        x++
-        if (x > 10)
-            break
-    }
-    if (x > 10)
-        x = 10
+    var n = abs(n)
     val k = n % 10
-    d = 10
-    for (i in 1 until x) {
-        if ((n / d) % 10 != k)
+    while (n != 0) {
+        if (n % 10 != k)
             return true
-        d *= 10
+        n /= 10
     }
     return false
 }
@@ -272,9 +259,9 @@ fun sin(x: Double, eps: Double): Double {
     }
 
     var x = x
-    while (x > 2*PI)
+    while (x > 2 * PI)
         x -= 2 * PI
-    while (x < -2*PI)
+    while (x < -2 * PI)
         x += 2 * PI
     var c = 0.0
     var s = 1
@@ -343,6 +330,7 @@ fun squareSequenceDigit(n: Int): Int {
             y *= this
         return y
     }
+
     var k = 1
     var m = n
     var a = k * k.toLong()

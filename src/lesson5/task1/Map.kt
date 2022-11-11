@@ -170,8 +170,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =
-    stockPrices.groupBy({ it.first }, { it.second }).mapValues { it.value.average() }
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
 
 
 /**
@@ -306,13 +305,14 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    for (i in list.indices) {
-        for (j in i + 1 until list.size) {
-            if (list[i] + list[j] == number)
-                return Pair(i, j)
-        }
-    }
-    return Pair(-1, -1)
+    val s = mutableMapOf<Int, Int>()
+    for ((i, v) in list.withIndex())
+        s[v] = i
+    for ((a1, v1) in s)
+        for ((a2, v2) in s)
+            if (a1 + a2 == number && v1 != v2)
+                return v1 to v2
+    return -1 to -1
 }
 
 /**
