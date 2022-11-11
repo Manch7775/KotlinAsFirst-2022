@@ -221,26 +221,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String {
-    var m = n
-    var a = 2
-    val s = mutableListOf<Int>()
-    while (true) {
-        while (a <= sqrt(m.toDouble()).toInt()) {
-            if (m % a == 0) {
-                s.add(a)
-                break
-            }
-            a++
-        }
-        if (a > sqrt(m.toDouble()).toInt()) {
-            s.add(m)
-            break
-        }
-        m /= a
-    }
-    return s.joinToString("*")
-}
+fun factorizeToString(n: Int): String = TODO()
 
 /**
  * Средняя (3 балла)
