@@ -156,8 +156,17 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().int
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> =
-    (mapA.entries + mapB.entries).groupBy({ it.key }, { it.value }).mapValues { it.value.distinct().joinToString(", ") }
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val s = mutableMapOf<String, MutableList<String>>()
+    for ((name, number) in mapA)
+        s[name] = mutableListOf(number)
+    for ((name, number) in mapB)
+        if (name !in s)
+            s[name] = mutableListOf(number)
+        else if (number !in s[name]!!)
+            s[name]!!.add(number)
+    return s.map { it.key to it.value.joinToString(", ") }.toMap()
+}
 
 
 /**
@@ -188,8 +197,20 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? =
-    stuff.toList().filter { it.second.first == kind }.minByOrNull { it.second.second }?.first
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    var s: String? = null
+    var m = 0.0
+    for ((name, sale) in stuff) {
+        val (type, price) = sale
+        if (type != kind)
+            continue
+        if (s == null || price < m) {
+            s = name
+            m = price
+        }
+    }
+    return s
+}
 
 /**
  * Средняя (3 балла)
@@ -215,26 +236,10 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    val unit = 1
-    val counterMap = mutableMapOf<String, MutableList<Int>>()
-    list.forEach { key ->
-        val listTwo = counterMap.get(key)
-        if (listTwo == null) {
-            counterMap.put(key, mutableListOf(unit))
-        } else {
-            listTwo.add(unit)
-        }
-    }
-    val resultMap = mutableMapOf<String, Int>()
-    for (entry in counterMap) {
-        val count = entry.value.size
-        if (count > 1) {
-            resultMap[entry.key] = count
-        }
-    }
-    return resultMap
+    val x = list.groupBy { it }
+    val y = x.mapValues { (k, v) -> v.size }
+    return y.filterValues { it > 1 }
 }
-
 
 /**
  * Средняя (3 балла)
@@ -307,11 +312,10 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     val s = mutableMapOf<Int, Int>()
     for ((i, v) in list.withIndex())
-        s[i] = v
-    for ((v1, a1) in s)
-        for ((v2, a2) in s)
-            if (a1 + a2 == number && v1 != v2)
-                return v1 to v2
+        s[number - v] = i
+    for ((v1, a1) in list.withIndex())
+        if (a1 in s && s[a1]!! != v1)
+            return v1 to s[a1]!!
     return -1 to -1
 }
 

@@ -74,7 +74,32 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val d = mapOf(
+        "января" to 1,
+        "февраля" to 2,
+        "марта" to 3,
+        "апреля" to 4,
+        "мая" to 5,
+        "июня" to 6,
+        "июля" to 7,
+        "августа" to 8,
+        "сентября" to 9,
+        "октября" to 10,
+        "ноября" to 11,
+        "декабря" to 12
+    )
+    return try {
+        val (a, b, c) = str.split(".")
+        val f = a.toInt()
+        val r = c.toInt()
+        val t = d[b]!!
+        String.format("%02d.%02d.%04d", f, t, r)
+    } catch (s: Exception) {
+        ""
+    }
+
+}
 
 /**
  * Средняя (4 балла)
@@ -151,14 +176,14 @@ fun plusMinus(expression: String): Int = TODO()
  */
 fun firstDuplicateIndex(str: String): Int {
     val s = str.uppercase().split(' ')
-    for (i in 0 until s.size-1)
-        if (s[i+1] == s[i]) {
+    for (i in 0 until s.size - 1)
+        if (s[i + 1] == s[i]) {
             val d = s.take(i)
-                val x = d.map { it.length }
-                    val k = x.sum()
+            val x = d.map { it.length }
+            val k = x.sum()
             return k + i
         }
-            return -1
+    return -1
 }
 
 /**
@@ -172,8 +197,12 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String =
-    description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }[0]
+fun mostExpensive(description: String): String {
+    val x = description.split("; ")
+    val y = x.map { it.split(" ") }
+    val z = y.maxByOrNull { it[1].toDouble() } ?: return ""
+    return z[0]
+}
 
 /**
  * Сложная (6 баллов)

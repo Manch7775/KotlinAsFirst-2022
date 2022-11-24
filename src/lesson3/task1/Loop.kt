@@ -258,11 +258,7 @@ fun sin(x: Double, eps: Double): Double {
         return a
     }
 
-    var x = x
-    while (x > 2 * PI)
-        x -= 2 * PI
-    while (x < -2 * PI)
-        x += 2 * PI
+    val x = x % (2 * PI)
     var c = 0.0
     var s = 1
     var d = x.pow(s) / factorial(s)
