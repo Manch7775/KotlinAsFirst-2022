@@ -292,20 +292,17 @@ fun cos(x: Double, eps: Double): Double {
         return a
     }
 
-    var x = x
-    while (x > 2 * PI)
-        x -= 2 * PI
-    while (x < -2 * PI)
-        x += 2 * PI
+    val x = x % (2 * PI)
     var c = 0.0
     var s = 0
     var d = x.pow(s) / factorial(s)
     var z = 1
-    while (d >= eps) {
+    while (abs(d) >= eps) {
         c += z * d
         z = -z
         s += 2
         d = x.pow(s) / factorial(s)
+
     }
     return c
 }
