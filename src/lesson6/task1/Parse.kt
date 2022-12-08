@@ -170,13 +170,8 @@ fun firstDuplicateIndex(str: String): Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String {
-    val x = description.split("; ")
-    val y = x.map { it.split(" ") }
-    val z = y.maxByOrNull { it[1].toDouble() } ?: return ""
-    return z[0]
-}
-
+fun mostExpensive(description: String): String =
+    description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }[0]
 /**
  * Сложная (6 баллов)
  *
@@ -198,7 +193,7 @@ fun fromRoman(roman: String): Int {
         if (number.isEmpty())
             0
         else {
-            ra.filter { d -> number.startsWith(d.value) }
+            ra.filter { number.startsWith(it.value) }
                 .map { (key, value) -> key + fromRoman1(number.drop(value.length)) }
                 .first()
         }

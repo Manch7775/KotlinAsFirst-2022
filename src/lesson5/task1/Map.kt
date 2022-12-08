@@ -156,17 +156,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().int
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    val s = mutableMapOf<String, MutableList<String>>()
-    for ((name, number) in mapA)
-        s[name] = mutableListOf(number)
-    for ((name, number) in mapB)
-        if (name !in s)
-            s[name] = mutableListOf(number)
-        else if (number !in s[name]!!)
-            s[name]!!.add(number)
-    return s.map { it.key to it.value.joinToString(", ") }.toMap()
-}
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> =
+    (mapA.entries + mapB.entries).groupBy({ it.key }, { it.value }).mapValues { it.value.distinct().joinToString(", ") }
 
 
 /**
@@ -197,20 +188,8 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    var s: String? = null
-    var m = 0.0
-    for ((name, sale) in stuff) {
-        val (type, price) = sale
-        if (type != kind)
-            continue
-        if (s == null || price < m) {
-            s = name
-            m = price
-        }
-    }
-    return s
-}
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? =
+    stuff.toList().filter { it.second.first == kind }.minByOrNull { it.second.second }?.first
 
 /**
  * Средняя (3 балла)
@@ -235,10 +214,9 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> {
-    val x = list.groupBy { it }.mapValues { (k, v) -> v.size }
-    return x.filterValues { it > 1 }
-}
+fun extractRepeats(list: List<String>): Map<String, Int> =
+    list.groupBy { it }.mapValues { (k, v) -> v.size }.filterValues { it > 1 }
+
 
 /**
  * Средняя (3 балла)
