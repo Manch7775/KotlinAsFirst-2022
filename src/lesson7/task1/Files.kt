@@ -90,6 +90,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val m = mutableMapOf<String, Int>()
     for (i in substrings) {
         var count = 0
+        m[i] = 0
         for (g in 0 until str.length) {
             if (str.drop(g).startsWith(i, true))
                 count++
@@ -149,7 +150,7 @@ fun centerFile(inputName: String, outputName: String) {
     val f = File(inputName).bufferedReader()
     val str = f.readLines().map { it.trim() }
     f.close()
-    val m = str.maxOf { it.length }
+    val m = str.maxOfOrNull { it.length }?:0
     val res = str.map { " ".repeat((m - it.length) / 2) + it }
     val s = File(outputName).bufferedWriter()
     s.write(res.joinToString("\n"))
@@ -224,6 +225,12 @@ fun top20Words(inputName: String): Map<String, Int> {
                 n = ""
             }
         }
+    }
+    if (n.isNotEmpty()) {
+        if (n in res)
+            res[n] = res[n]!! + 1
+        else res[n] = 1
+        n = ""
     }
     val s = res.toList().sortedByDescending { it.second }
     var d = 20

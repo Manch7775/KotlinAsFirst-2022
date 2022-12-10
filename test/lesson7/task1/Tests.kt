@@ -128,8 +128,9 @@ Basic, Ruby, Swift.
         Вывести его в выходной файл с именем outputName, выровняв по центру."""
         )
         File("temp.txt").delete()
-
+        centerFile("input/empty.txt", "temp.txt")
     }
+
 
     @Test
     @Tag("20")
