@@ -153,8 +153,7 @@ fun firstDuplicateIndex(str: String): Int {
     val s = str.uppercase().split(' ')
     for (i in 0 until s.size - 1)
         if (s[i + 1] == s[i]) {
-            val d = s.take(i).map { it.length }.sum()
-            return d + i
+            return s.take(i).map { it.length }.sum() + i
         }
     return -1
 }

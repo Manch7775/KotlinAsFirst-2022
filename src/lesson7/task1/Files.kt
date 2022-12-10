@@ -63,7 +63,15 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    TODO()
+    val f = File(inputName).bufferedReader()
+    val str = f.readLines()
+    f.close()
+    val s = File(outputName).bufferedWriter()
+    for (i in str){
+        if (i.isEmpty() || i.first() != '_')
+            s.write(i + '\n')
+    }
+    s.close()
 }
 
 /**
@@ -75,7 +83,24 @@ fun deleteMarked(inputName: String, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val f = File(inputName).bufferedReader()
+    val str = f.readLines().joinToString("\n")
+    f.close()
+    val m = mutableMapOf<String, Int>()
+    for (i in substrings) {
+        var count = 0
+        for (g in 0 until str.length) {
+            if (str.drop(g).startsWith(i, true))
+                count++
+        }
+        if (i in m)
+            m[i] = m[i]!! + count
+        else
+            m[i] = count
+    }
+    return m
+}
 
 
 /**
@@ -92,7 +117,15 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val f = File(inputName).bufferedReader()
+    var str = f.readLines().joinToString("\n")
+    f.close()
+    for (i in arrayOf("Ж", "Ч", "Ш", "Щ", "ж", "ч", "ш", "щ"))
+        for (g in arrayOf("Ы" to "И", "Я" to "А", "Ю" to "У", "ы" to "и", "я" to "а", "ю" to "у"))
+            str = str.replace(i + g.first, i + g.second)
+    val s = File(outputName).bufferedWriter()
+    s.write(str)
+    s.close()
 }
 
 /**
@@ -113,7 +146,14 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val f = File(inputName).bufferedReader()
+    val str = f.readLines().map { it.trim() }
+    f.close()
+    val m = str.maxOf { it.length }
+    val res = str.map { " ".repeat((m - it.length) / 2) + it }
+    val s = File(outputName).bufferedWriter()
+    s.write(res.joinToString("\n"))
+    s.close()
 }
 
 /**
@@ -144,7 +184,7 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+TODO()
 }
 
 /**
@@ -177,7 +217,7 @@ fun top20Words(inputName: String): Map<String, Int> {
         if (i.isLetter())
             n += i
         else {
-            if(n.isNotEmpty()){
+            if (n.isNotEmpty()) {
                 if (n in res)
                     res[n] = res[n]!! + 1
                 else res[n] = 1

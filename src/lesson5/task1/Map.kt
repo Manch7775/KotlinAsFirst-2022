@@ -156,8 +156,12 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().int
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> =
-    (mapA.entries + mapB.entries).groupBy({ it.key }, { it.value }).mapValues { it.value.distinct().joinToString(", ") }
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val x = (mapA.entries + mapB.entries)
+    val y = x.groupBy({ it.key }, { it.value })
+    val z = y.mapValues { it.value.joinToString(", ") }
+    return z
+}
 
 
 /**
@@ -188,8 +192,13 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? =
-    stuff.toList().filter { it.second.first == kind }.minByOrNull { it.second.second }?.first
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    val x = stuff.toList()
+    val y = x.filter { it.second.first == kind }
+    val z = y.minByOrNull { it.second.second }
+    val u = z?.first
+    return u
+}
 
 /**
  * Средняя (3 балла)
