@@ -39,7 +39,7 @@ fun square(notation: String): Square {
     val str = mapOf('a' to 1, 'b' to 2, 'c' to 3, 'd' to 4, 'e' to 5, 'f' to 6, 'g' to 7, 'h' to 8)
     if (notation.length != 2) throw IllegalArgumentException()
     val colonka = str[notation[0]] ?: throw IllegalAccessException()
-    val row = notation[1].toString().toIntOrNull() ?: throw IllegalArgumentException()
+    val row = notation[1].toString().toInt()
     if (row !in 1..8) throw IllegalAccessException()
     return Square(colonka, row)
 }
