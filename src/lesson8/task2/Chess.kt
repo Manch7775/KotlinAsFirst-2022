@@ -70,6 +70,7 @@ fun square(notation: String): Square {
 fun rookMoveNumber(start: Square, end: Square): Int {
     if (start.row == end.row && start.column == end.column) return 0
     if (start.row == end.row || start.column == end.column) return 1
+    else IllegalAccessException()
     return 2
 }
 
