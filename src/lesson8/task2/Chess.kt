@@ -67,12 +67,7 @@ fun square(notation: String): Square {
  * Пример: rookMoveNumber(Square(3, 1), Square(6, 3)) = 2
  * Ладья может пройти через клетку (3, 3) или через клетку (6, 1) к клетке (6, 3).
  */
-fun rookMoveNumber(start: Square, end: Square): Int {
-    if (start.row == end.row && start.column == end.column) return 0
-    if (start.row == end.row || start.column == end.column) return 1
-    else IllegalAccessException()
-    return 2
-}
+fun rookMoveNumber(start: Square, end: Square): Int = TODO()
 
 /**
  * Средняя (3 балла)
