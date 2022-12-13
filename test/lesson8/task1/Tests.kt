@@ -161,7 +161,6 @@ class Tests {
         assertApproxEquals(Segment(p3, p4), diameter(p1, p2, p3, p4))
         assertApproxEquals(Segment(p2, p4), diameter(p1, p2, p4))
         assertApproxEquals(Segment(p1, p4), diameter(p1, p4))
-        assertApproxEquals(Segment(p1, p4), diameter(p1))
     }
 
     @Test
