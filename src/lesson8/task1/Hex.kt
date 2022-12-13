@@ -2,9 +2,6 @@
 
 package lesson8.task1
 
-import kotlin.math.abs
-import kotlin.math.min
-
 /**
  * Точка (гекс) на шестиугольной сетке.
  * Координаты заданы как в примере (первая цифра - y, вторая цифра - x)
@@ -39,15 +36,7 @@ data class HexPoint(val x: Int, val y: Int) {
      * Расстояние вычисляется как число единичных отрезков в пути между двумя гексами.
      * Например, путь межу гексами 16 и 41 (см. выше) может проходить через 25, 34, 43 и 42 и имеет длину 5.
      */
-    fun distance(other: HexPoint): Int {
-        val dx = x - other.x
-        val dy = y - other.y
-        val d = min(min(abs(dx + dy), abs(dy)), abs(dx))
-        if (d == abs(dx + dy))
-            return d + min(abs(dy), abs(dx))
-        else
-            return d + abs(dx + dy)
-    }
+    fun distance(other: HexPoint): Int = TODO()
 
     override fun toString(): String = "$y.$x"
 }

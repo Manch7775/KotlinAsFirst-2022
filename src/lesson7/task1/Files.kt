@@ -188,7 +188,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     val f = File(inputName).bufferedReader()
     val str = f.readLines().map { it.trim().replace(" +".toRegex(), " ") }
     f.close()
-    val max = str.maxOf { it.length }
+    val max = str.maxOfOrNull { it.length } ?: 0
     val res = str.map {
         val spaces = max - it.length
         val num = it.filter { c -> c == ' ' }.length

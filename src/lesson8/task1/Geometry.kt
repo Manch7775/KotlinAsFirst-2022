@@ -167,14 +167,14 @@ class Line private constructor(val b: Double, val angle: Double) {
  *
  * Построить прямую по отрезку
  */
-fun lineBySegment(s: Segment): Line = Line(s.begin, atan2(s.end.y - s.begin.y, s.end.x - s.begin.x))
+fun lineBySegment(s: Segment): Line = Line(s.begin, atan2(s.end.y - s.begin.y, s.end.x - s.begin.x) % PI)
 
 /**
  * Средняя (3 балла)
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line = Line(a, atan2(b.y - a.y, b.x - a.x))
+fun lineByPoints(a: Point, b: Point): Line = Line(a, atan2(b.y - a.y, b.x - a.x) % PI)
 
 /**
  * Сложная (5 баллов)
@@ -183,7 +183,7 @@ fun lineByPoints(a: Point, b: Point): Line = Line(a, atan2(b.y - a.y, b.x - a.x)
  */
 fun bisectorByPoints(a: Point, b: Point): Line {
     val center = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
-    val a = Line(center, atan2(b.y - a.y, b.x - a.x) + PI / 2)
+    val a = Line(center, (atan2(b.y - a.y, b.x - a.x) + PI / 2) % PI)
     return a
 }
 
